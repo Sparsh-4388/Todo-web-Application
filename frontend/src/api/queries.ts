@@ -1,5 +1,6 @@
+// queries.ts
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from './client';
+import { apiClient } from './client'; // make sure this points to Render backend
 import {
   authResponseSchema,
   todosResponseSchema,
@@ -14,7 +15,9 @@ import type {
 } from '../schemas';
 import { useAuthStore } from '../store/authStore';
 
-// Auth API
+// -------------------- Auth Hooks --------------------
+
+// Login
 export const useLogin = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
 
@@ -29,6 +32,7 @@ export const useLogin = () => {
   });
 };
 
+// Signup
 export const useSignup = () => {
   const setAuth = useAuthStore((state) => state.setAuth);
 
@@ -43,6 +47,7 @@ export const useSignup = () => {
   });
 };
 
+// Forgot Password
 export const useForgotPassword = () => {
   return useMutation({
     mutationFn: async (data: ForgotPasswordForm) => {
@@ -52,6 +57,7 @@ export const useForgotPassword = () => {
   });
 };
 
+// Reset Password
 export const useResetPassword = () => {
   return useMutation({
     mutationFn: async (data: ResetPasswordForm) => {
@@ -61,7 +67,9 @@ export const useResetPassword = () => {
   });
 };
 
-// Todo API
+// -------------------- Todo Hooks --------------------
+
+// Fetch all todos
 export const useTodos = () => {
   return useQuery({
     queryKey: ['todos'],
@@ -72,6 +80,7 @@ export const useTodos = () => {
   });
 };
 
+// Create todo
 export const useCreateTodo = () => {
   const queryClient = useQueryClient();
 
@@ -86,6 +95,7 @@ export const useCreateTodo = () => {
   });
 };
 
+// Update todo
 export const useUpdateTodo = () => {
   const queryClient = useQueryClient();
 
@@ -100,6 +110,7 @@ export const useUpdateTodo = () => {
   });
 };
 
+// Delete todo
 export const useDeleteTodo = () => {
   const queryClient = useQueryClient();
 
@@ -114,6 +125,7 @@ export const useDeleteTodo = () => {
   });
 };
 
+// Toggle todo completion
 export const useToggleTodo = () => {
   const queryClient = useQueryClient();
 
